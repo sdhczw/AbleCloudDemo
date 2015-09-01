@@ -11,7 +11,7 @@
 #include <ac_common.h>
 
 #define AC_HS_MSG_LEN                       (40)
-#define AC_HS_DEVICE_ID_LEN                 (16)
+#define AC_HS_DEVICE_ID_LEN                 (48)
 #define AC_HS_SESSION_KEY_LEN               (16)
 #define AC_HS_SESSION_IV_LEN                (16)
 #define AC_MODULE_KEY_LEN                   (112)

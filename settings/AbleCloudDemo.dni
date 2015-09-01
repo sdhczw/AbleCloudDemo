@@ -9,7 +9,7 @@ TriggerName=main
 LimitSize=0
 ByteLimit=50
 [DebugChecksum]
-Checksum=1214412320
+Checksum=50617452
 [CodeCoverage]
 Enabled=_ 0
 [Exceptions]
@@ -54,11 +54,20 @@ Freq=10000000
 MultiCoreRunAll=1
 [LMIFTDI]
 LMIFTDIserialNo=0E20FECE
-LMIFTDIfoundProbes=0E20FECE:FF:
+LMIFTDIfoundProbes=0E20FECE:FF:FF:
 [LMIFTDIDriver]
 LMI_ResetMode=0x00000000
 [struct_types]
 Fmt0=AC_MessageHead-Payloadlen	4	0
+[Disassemble mode]
+mode=0
+[Breakpoints]
+Bp0=_ "STD_CODE" "{$PROJ_DIR$\src\ac\ac_hal.c}.130.9" 1 0 0 0 "" 0 ""
+Bp1=_ "STD_CODE" "{$PROJ_DIR$\src\ac\ac_hal.c}.141.9" 1 0 0 0 "" 0 ""
+Bp2=_ "STD_CODE" "{$PROJ_DIR$\src\ac\ac_hal.c}.251.5" 1 0 0 0 "" 0 ""
+Bp3=_ "STD_CODE" "{$PROJ_DIR$\src\ac\ac_hal.c}.305.1" 0 0 0 0 "" 0 ""
+Bp4=_ "STD_CODE" "{$PROJ_DIR$\src\ac\ac_hal.c}.134.9" 1 0 0 0 "" 0 ""
+Count=5
 [Log file]
 LoggingEnabled=_ 0
 LogFile=_ ""
@@ -66,22 +75,13 @@ Category=_ 0
 [TermIOLog]
 LoggingEnabled=_ 0
 LogFile=_ ""
+[Aliases]
+A0=_ "D:\Texas Instruments\TivaWare_C_Series-2.1.0.12573\driverlib\timer.c" ""
+Count=1
+SuppressDialog=1
 [DriverProfiling]
 Enabled=0
 Mode=0
 Graph=0
 Symbiont=0
 Exclusions=
-[Disassemble mode]
-mode=0
-[Breakpoints]
-Bp0=_ "STD_CODE" "{$PROJ_DIR$\src\ac\ac_hal.c}.130.9" 1 0 0 0 "" 0 ""
-Bp1=_ "STD_CODE" "{$PROJ_DIR$\src\ac\ac_hal.c}.140.9" 1 0 0 0 "" 0 ""
-Bp2=_ "STD_CODE" "{$PROJ_DIR$\src\ac\ac_hal.c}.250.5" 1 0 0 0 "" 0 ""
-Bp3=_ "STD_CODE" "{$PROJ_DIR$\src\ac\ac_hal.c}.304.1" 0 0 0 0 "" 0 ""
-Bp4=_ "STD_CODE" "{$PROJ_DIR$\src\ac\ac_hal.c}.133.9" 1 0 0 0 "" 0 ""
-Count=5
-[Aliases]
-A0=_ "D:\Texas Instruments\TivaWare_C_Series-2.1.0.12573\driverlib\timer.c" ""
-Count=1
-SuppressDialog=1
