@@ -87,7 +87,6 @@ void AC_ConfigWifi()
     memcpy(struConfig.u8Ssid, "HW_test", 7);
     memcpy(struConfig.u8Password, "87654321", 8);
     struConfig.u32IpAddr = AC_HTONL(0xc0a8c772);  //local test ip
-    struConfig.u16Port = AC_HTONS(9100); 
 
     memcpy(struConfig.u8CloudAddr, "test.ablecloud.cn", AC_CLOUD_ADDR_MAX_LEN);
     memcpy(struConfig.u8CloudKey, u8CloudKey, AC_CLOUD_KEY_MAX_LEN);
@@ -131,7 +130,7 @@ void AC_DealNotifyMessage(AC_MessageHead *pstruMsg, AC_OptList *pstruOptList, u8
         AC_Printf("Wifi Power On!\n");
         break;
         case AC_CODE_WIFI_CONNECTED://wifi连接成功通知
-        AC_SendDeviceRegsiterWithMac(NULL, g_u8EqVersion,g_u8ModuleKey,g_u64Domain,NULL);
+        AC_SendDeviceRegsiterWithMac(g_u8EqVersion,g_u8ModuleKey,g_u64Domain);
         AC_Printf("Wifi Connect!\n");
         break;
         case AC_CODE_WIFI_DISCONNECTED://云端连接通知
@@ -246,9 +245,10 @@ void AC_StoreStatus(u32 u32Type , u32 u32Data)
 * Parameter: 
 * History:
 *************************************************/
-void AC_BlinkLed(unsigned char blink)
+s8 AC_BlinkLed(unsigned char blink)
 {
     GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_2, blink << 2);
+    return 1;
 }
 /*************************************************
 * Function: AC_DealLed
@@ -261,22 +261,23 @@ void AC_BlinkLed(unsigned char blink)
 
 void AC_DealLed(AC_MessageHead *pstruMsg, AC_OptList *pstruOptList, u8 *pu8Playload)
 {
-
     u16 u16DataLen;
-    u8 test[] = "hello";
-
+    u8 resp[4] = {0};
+    
     switch (((STRU_LED_ONOFF *)pu8Playload)->u8LedOnOff)
     {
         case 0://处理开关消息
         case 1:        
-            AC_BlinkLed(((STRU_LED_ONOFF *)pu8Playload)->u8LedOnOff);
-            break;            
+        resp[0]=AC_BlinkLed(((STRU_LED_ONOFF *)pu8Playload)->u8LedOnOff);
+        break;            
         
     }
-    AC_BuildMessage(CLIENT_SERVER_OK,pstruMsg->MsgId,
-                    (u8*)test, 5,
+    /*构造消息,接口含义详见下节接口定义*/
+    AC_BuildMessage(102,pstruMsg->MsgId,
+                    (u8*)resp, sizeof(resp),
                     pstruOptList, 
                     g_u8MsgBuildBuffer, &u16DataLen);
+    /*发送消息,接口含义详见下节接口定义*/
     AC_SendMessage(g_u8MsgBuildBuffer, u16DataLen);    
 }
 /*************************************************

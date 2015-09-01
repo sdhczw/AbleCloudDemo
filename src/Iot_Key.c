@@ -28,7 +28,6 @@
 #include "inc/hw_gpio.h"
 #include "ac_common.h"
 #include "ac_hal.h"
-#include "ac_cfg.h"
 vu32  g_vu32Key = 0;
 
 

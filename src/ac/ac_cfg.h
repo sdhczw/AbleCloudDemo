@@ -16,9 +16,9 @@
 
 #define DEVICE_ID "4444444444444451" //16个字节，不足的前面补0
 
-#define MAJOR_DOMAIN_ID 3//主域id
+#define MAJOR_DOMAIN_ID 18//主域id
 
-#define SUB_DOMAIN_ID  6 //子域id
+#define SUB_DOMAIN_ID  19 //子域id
 
 
 #define DEFAULT_IOT_CLOUD_KEY {\

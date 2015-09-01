@@ -9,7 +9,7 @@ TriggerName=main
 LimitSize=0
 ByteLimit=50
 [DebugChecksum]
-Checksum=-501268684
+Checksum=1214412320
 [CodeCoverage]
 Enabled=_ 0
 [Exceptions]
@@ -53,8 +53,8 @@ ShowSource=1
 Freq=10000000
 MultiCoreRunAll=1
 [LMIFTDI]
-LMIFTDIserialNo=0E208B59
-LMIFTDIfoundProbes=0E208B59:FF:
+LMIFTDIserialNo=0E20FECE
+LMIFTDIfoundProbes=0E20FECE:FF:
 [LMIFTDIDriver]
 LMI_ResetMode=0x00000000
 [struct_types]
@@ -75,11 +75,12 @@ Exclusions=
 [Disassemble mode]
 mode=0
 [Breakpoints]
-Bp0=_ "STD_CODE" "{$PROJ_DIR$\src\ac\ac_hal.c}.131.9" 1 0 0 0 "" 0 ""
-Bp1=_ "STD_CODE" "{$PROJ_DIR$\src\ac\ac_hal.c}.141.9" 1 0 0 0 "" 0 ""
-Bp2=_ "STD_CODE" "{$PROJ_DIR$\src\ac\ac_hal.c}.251.5" 1 0 0 0 "" 0 ""
+Bp0=_ "STD_CODE" "{$PROJ_DIR$\src\ac\ac_hal.c}.130.9" 1 0 0 0 "" 0 ""
+Bp1=_ "STD_CODE" "{$PROJ_DIR$\src\ac\ac_hal.c}.140.9" 1 0 0 0 "" 0 ""
+Bp2=_ "STD_CODE" "{$PROJ_DIR$\src\ac\ac_hal.c}.250.5" 1 0 0 0 "" 0 ""
 Bp3=_ "STD_CODE" "{$PROJ_DIR$\src\ac\ac_hal.c}.304.1" 0 0 0 0 "" 0 ""
-Count=4
+Bp4=_ "STD_CODE" "{$PROJ_DIR$\src\ac\ac_hal.c}.133.9" 1 0 0 0 "" 0 ""
+Count=5
 [Aliases]
 A0=_ "D:\Texas Instruments\TivaWare_C_Series-2.1.0.12573\driverlib\timer.c" ""
 Count=1

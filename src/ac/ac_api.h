@@ -31,8 +31,8 @@ void AC_BuildMessage(u8 u8MsgCode, u8 u8MsgId,
     AC_OptList *pstruOptList,
     u8 *pu8Msg, u16 *pu16Len);
 void AC_SendDeviceStart(AC_OptList *pstruOptList);
-void AC_SendDeviceRegsiter(AC_OptList *pstruOptList, u8 *pu8EqVersion, u8 *pu8ModuleKey, u64 u64Domain, u8 *pu8DeviceId);
-void AC_SendDeviceRegsiterWithMac(AC_OptList *pstruOptList, u8 *pu8EqVersion, u8 *pu8ModuleKey, u64 u64Domain, u8 *pu8DeviceId);
+void AC_SendDeviceRegsiter(u8 *pu8EqVersion, u8 *pu8ModuleKey, u64 u64Domain, u8 *pu8DeviceId);
+void AC_SendDeviceRegsiterWithMac(u8 *pu8EqVersion, u8 *pu8ModuleKey, u64 u64Domain);
 void AC_SendAckMsg(AC_OptList *pstruOptList, u8 u8MsgId);
 void AC_SendErrMsg(AC_OptList *pstruOptList, u8 u8MsgId, u8 *pu8ErrorMsg, u16 u16DataLen);
 void AC_SendRestMsg(AC_OptList *pstruOptList);

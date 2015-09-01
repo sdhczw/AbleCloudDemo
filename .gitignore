@@ -1,0 +1,13 @@
+*.o
+*.d
+*.ko
+*.obj
+*.elf
+*.rar
+*.zip
+*.bak
+*.tmp
+*.pbi
+*.cout
+*.sim
+si/*

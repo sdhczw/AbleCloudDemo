@@ -2,6 +2,8 @@
 
 
 ##修改记录：
+###v1.0.5 2015.09.01
+更新AC_SendDeviceRegsiter和AC_SendDeviceRegsiterWithMac去除AC_OptList传入参数
 ###v1.0.4 2015.07.14
 1.在ac_api.c增加 AC_SendRebootMsg，用于ota_confirm消息确认之后重启wifi。
 
@@ -22,4 +24,3 @@ typedef struct
 ###v1.0.1 2015.03.28
 1.设备ID扩展到16个字节
 2.AC_ConfigWifi接口增加端口配置，u32TestAddrConfig = 0：dns配置生效，u32TestAddrConfig = 1：ip地址生效 
-

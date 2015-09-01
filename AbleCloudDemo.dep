@@ -6,89 +6,89 @@
   <configuration>
     <name>Debug</name>
     <outputs>
-      <file>$TOOLKIT_DIR$\inc\c\stdint.h</file>
-      <file>$TOOLKIT_DIR$\inc\c\DLib_Config_Normal.h</file>
-      <file>$PROJ_DIR$\ewarm\Obj\ac_hal.pbi</file>
-      <file>$PROJ_DIR$\ewarm\Obj\ac_api.o</file>
-      <file>$PROJ_DIR$\ewarm\Obj\ac_common.pbi</file>
-      <file>$TOOLKIT_DIR$\inc\c\DLib_Defaults.h</file>
-      <file>$PROJ_DIR$\ewarm\Obj\crc.o</file>
-      <file>$PROJ_DIR$\inc\hw_ints.h</file>
-      <file>$PROJ_DIR$\driverlib\fpu.h</file>
-      <file>$PROJ_DIR$\ewarm\Obj\main.pbi</file>
-      <file>$PROJ_DIR$\ewarm\Obj\Iot_Uart.o</file>
-      <file>$PROJ_DIR$\ewarm\Obj\crc.pbi</file>
-      <file>$PROJ_DIR$\ewarm\Obj\Iot_Uart.pbi</file>
-      <file>$PROJ_DIR$\ewarm\Obj\uartstdio.o</file>
-      <file>$PROJ_DIR$\driverlib\pin_map.h</file>
-      <file>$PROJ_DIR$\ewarm\Exe\AbleCloudDemo.out</file>
-      <file>$PROJ_DIR$\ewarm\Obj\startup_ewarm.pbi</file>
-      <file>$PROJ_DIR$\ewarm\Exe\AbleCloudDemo.bin</file>
-      <file>$PROJ_DIR$\ewarm\Obj\uartstdio.pbi</file>
-      <file>$TOOLKIT_DIR$\inc\c\stdbool.h</file>
-      <file>$PROJ_DIR$\inc\hw_types.h</file>
-      <file>$TOOLKIT_DIR$\inc\c\stdarg.h</file>
-      <file>$PROJ_DIR$\ewarm\Obj\startup_ewarm.o</file>
-      <file>$TOOLKIT_DIR$\inc\c\DLib_Threads.h</file>
-      <file>$TOOLKIT_DIR$\inc\c\yvals.h</file>
-      <file>$PROJ_DIR$\ewarm\Obj\Iot_Timer.pbi</file>
-      <file>$TOOLKIT_DIR$\inc\c\xencoding_limits.h</file>
-      <file>$PROJ_DIR$\driverlib\interrupt.h</file>
-      <file>$TOOLKIT_DIR$\inc\c\DLib_Product_string.h</file>
-      <file>$PROJ_DIR$\ewarm\Obj\main.o</file>
-      <file>$PROJ_DIR$\ewarm\Obj\Iot_Timer.o</file>
-      <file>$PROJ_DIR$\driverlib\uart.h</file>
-      <file>$PROJ_DIR$\driverlib\gpio.h</file>
-      <file>$PROJ_DIR$\ewarm\Obj\Iot_Key.pbi</file>
-      <file>$TOOLKIT_DIR$\inc\c\ysizet.h</file>
-      <file>$TOOLKIT_DIR$\inc\c\DLib_Product.h</file>
-      <file>$PROJ_DIR$\ewarm\Obj\ac_common.o</file>
-      <file>$PROJ_DIR$\ewarm\Obj\ac_api.pbi</file>
-      <file>$PROJ_DIR$\ewarm\Obj\ac_hal.o</file>
-      <file>$PROJ_DIR$\inc\hw_memmap.h</file>
-      <file>$PROJ_DIR$\ewarm\Obj\AbleCloudDemo.pbd</file>
-      <file>$TOOLKIT_DIR$\inc\c\ycheck.h</file>
-      <file>$PROJ_DIR$\src\ac\ac_api.h</file>
-      <file>$PROJ_DIR$\src\ac\ac_common.h</file>
       <file>$PROJ_DIR$\src\ac\ac_cfg.h</file>
+      <file>$PROJ_DIR$\src\ac\ac_common.h</file>
       <file>$PROJ_DIR$\src\ac\ac_hal.h</file>
       <file>$PROJ_DIR$\src\ac\ac_protocol_interface.h</file>
+      <file>$PROJ_DIR$\src\ac\ac_api.h</file>
       <file>$PROJ_DIR$\include\bmd.h</file>
       <file>$PROJ_DIR$\include\Iot_Key.h</file>
       <file>$PROJ_DIR$\include\Iot_Timer.h</file>
       <file>$PROJ_DIR$\include\Iot_Uart.h</file>
       <file>$PROJ_DIR$\src\ac\ac_api.c</file>
       <file>$PROJ_DIR$\src\ac\ac_common.c</file>
-      <file>$PROJ_DIR$\src\ac\crc.c</file>
       <file>$PROJ_DIR$\src\ac\ac_hal.c</file>
+      <file>$PROJ_DIR$\src\ac\crc.c</file>
       <file>$PROJ_DIR$\src\Iot_Key.c</file>
       <file>$PROJ_DIR$\src\Iot_Timer.c</file>
+      <file>$PROJ_DIR$\src\uart\Iot_Uart.c</file>
+      <file>$PROJ_DIR$\src\main.c</file>
+      <file>$PROJ_DIR$\src\startup_ewarm.c</file>
+      <file>$PROJ_DIR$\src\uartstdio.c</file>
+      <file>$TOOLKIT_DIR$\inc\c\stdarg.h</file>
+      <file>$PROJ_DIR$\ewarm\Exe\AbleCloudDemo.bin</file>
+      <file>$PROJ_DIR$\ewarm\Obj\uartstdio.pbi</file>
+      <file>$PROJ_DIR$\ewarm\Obj\startup_ewarm.o</file>
+      <file>$TOOLKIT_DIR$\inc\c\DLib_Threads.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\yvals.h</file>
+      <file>$PROJ_DIR$\ewarm\Obj\Iot_Uart.pbi</file>
+      <file>$PROJ_DIR$\ewarm\Obj\uartstdio.o</file>
+      <file>$PROJ_DIR$\driverlib\pin_map.h</file>
       <file>$PROJ_DIR$\driverlib\debug.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\xencoding_limits.h</file>
+      <file>$PROJ_DIR$\driverlib\interrupt.h</file>
+      <file>$PROJ_DIR$\ewarm\Obj\Iot_Timer.pbi</file>
+      <file>$TOOLKIT_DIR$\inc\c\DLib_Product_string.h</file>
+      <file>$PROJ_DIR$\ewarm\Obj\main.o</file>
+      <file>$PROJ_DIR$\ewarm\Obj\Iot_Timer.o</file>
+      <file>$PROJ_DIR$\driverlib\uart.h</file>
+      <file>$PROJ_DIR$\driverlib\gpio.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\stdbool.h</file>
+      <file>$PROJ_DIR$\ewarm\Exe\AbleCloudDemo.out</file>
+      <file>$PROJ_DIR$\ewarm\Obj\startup_ewarm.pbi</file>
+      <file>$PROJ_DIR$\inc\hw_types.h</file>
+      <file>$PROJ_DIR$\driverlib\i2c.h</file>
+      <file>$PROJ_DIR$\driverlib\rom_map.h</file>
+      <file>$PROJ_DIR$\inc\hw_nvic.h</file>
+      <file>$PROJ_DIR$\driverlib\systick.h</file>
+      <file>$PROJ_DIR$\inc\hw_gpio.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\stdio.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\ystdio.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\stdint.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\DLib_Config_Normal.h</file>
+      <file>$PROJ_DIR$\ewarm\Obj\ac_hal.pbi</file>
+      <file>$PROJ_DIR$\ewarm\Obj\ac_api.o</file>
+      <file>$PROJ_DIR$\driverlib\fpu.h</file>
+      <file>$PROJ_DIR$\ewarm\Obj\ac_common.pbi</file>
+      <file>$TOOLKIT_DIR$\inc\c\DLib_Defaults.h</file>
+      <file>$PROJ_DIR$\ewarm\Obj\crc.o</file>
+      <file>$PROJ_DIR$\inc\hw_ints.h</file>
+      <file>$PROJ_DIR$\ewarm\Obj\main.pbi</file>
+      <file>$PROJ_DIR$\ewarm\Obj\Iot_Uart.o</file>
+      <file>$PROJ_DIR$\ewarm\Obj\crc.pbi</file>
       <file>$TOOLKIT_DIR$\inc\c\string.h</file>
       <file>$PROJ_DIR$\ewarm\Obj\Iot_Key.o</file>
       <file>$PROJ_DIR$\driverlib\sysctl.h</file>
       <file>$PROJ_DIR$\utils\uartstdio.h</file>
-      <file>$PROJ_DIR$\src\uart\Iot_Uart.c</file>
-      <file>$PROJ_DIR$\src\main.c</file>
-      <file>$PROJ_DIR$\src\startup_ewarm.c</file>
       <file>$PROJ_DIR$\driverlib\rom.h</file>
-      <file>$PROJ_DIR$\src\uartstdio.c</file>
+      <file>$PROJ_DIR$\driverlib\timer.h</file>
+      <file>$PROJ_DIR$\inc\hw_uart.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\ysizet.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\DLib_Product.h</file>
+      <file>$PROJ_DIR$\ewarm\Obj\Iot_Key.pbi</file>
+      <file>$PROJ_DIR$\ewarm\Obj\ac_common.o</file>
+      <file>$PROJ_DIR$\ewarm\Obj\ac_api.pbi</file>
+      <file>$PROJ_DIR$\ewarm\Obj\ac_hal.o</file>
+      <file>$PROJ_DIR$\inc\hw_memmap.h</file>
+      <file>$PROJ_DIR$\ewarm\Obj\AbleCloudDemo.pbd</file>
+      <file>$TOOLKIT_DIR$\inc\c\ycheck.h</file>
     </outputs>
-    <file>
-      <name>$PROJ_DIR$\ewarm\Exe\AbleCloudDemo.out</name>
-      <outputs>
-        <tool>
-          <name>OBJCOPY</name>
-          <file> 17</file>
-        </tool>
-      </outputs>
-    </file>
     <file>
       <name>[ROOT_NODE]</name>
       <outputs>
         <tool>
           <name>ILINK</name>
-          <file> 15</file>
+          <file> 38</file>
         </tool>
       </outputs>
     </file>
@@ -97,17 +97,17 @@
       <outputs>
         <tool>
           <name>BICOMP</name>
-          <file> 37</file>
+          <file> 71</file>
         </tool>
         <tool>
           <name>ICCARM</name>
-          <file> 3</file>
+          <file> 51</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 24 41 34 39 1 60 58 5 23 42 8 47 46 28 35 43 0 20 14 61 45 26 50 19 7 57 32 65 31 27 21</file>
+          <file> 8 28 30 75 24 1 37 64 3 60 29 56 36 35 4 2 67 32 54 23 49 68 48 73 40 52 27 62 63 5 19</file>
         </tool>
       </inputs>
     </file>
@@ -116,17 +116,36 @@
       <outputs>
         <tool>
           <name>BICOMP</name>
-          <file> 4</file>
+          <file> 53</file>
         </tool>
         <tool>
           <name>ICCARM</name>
-          <file> 36</file>
+          <file> 70</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 24 41 1 58 5 23 34 28 35 43 26</file>
+          <file> 24 75 49 60 54 23 67 32 68 1 29</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\src\ac\ac_hal.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 50</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 72</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 48 49 1 67 24 75 27 0 54 23 40 63 4 32 68 73 52 62 5 3 2 60 29 8 37 56 28 36 64 35 30 19</file>
         </tool>
       </inputs>
     </file>
@@ -135,48 +154,54 @@
       <outputs>
         <tool>
           <name>BICOMP</name>
-          <file> 11</file>
+          <file> 59</file>
         </tool>
         <tool>
           <name>ICCARM</name>
-          <file> 6</file>
+          <file> 55</file>
         </tool>
       </outputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\src\ac\ac_hal.c</name>
-      <outputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 2</file>
-        </tool>
-        <tool>
-          <name>ICCARM</name>
-          <file> 38</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 32 42 44 24 43 50 7 31 26 41 46 19 57 65 27 45 61 58 34 28 5 23 1 35 0 39 20 8 14 60 47 21</file>
-        </tool>
-      </inputs>
     </file>
     <file>
       <name>$PROJ_DIR$\src\Iot_Key.c</name>
       <outputs>
         <tool>
           <name>BICOMP</name>
-          <file> 33</file>
+          <file> 69</file>
         </tool>
         <tool>
           <name>ICCARM</name>
-          <file> 59</file>
+          <file> 61</file>
         </tool>
       </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 63 23 60 36 75 54 5 43 62 49 24 52 56 28 27 35 1 68 8 73 37 40 30 64 44 45 2 29 19 3 48 67 32 4</file>
+        </tool>
+      </inputs>
     </file>
     <file>
       <name>$PROJ_DIR$\src\Iot_Timer.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 31</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 34</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 24 7 27 40 30 19 75 8 63 73 52 62 1 29 48 37 56 28 36 64 65 2 54 23 49 68 60 3 5 67 32 4 35</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\src\uart\Iot_Uart.c</name>
       <outputs>
         <tool>
           <name>BICOMP</name>
@@ -184,59 +209,79 @@
         </tool>
         <tool>
           <name>ICCARM</name>
-          <file> 30</file>
+          <file> 58</file>
         </tool>
       </outputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\src\uart\Iot_Uart.c</name>
-      <outputs>
+      <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 12</file>
+          <file> 24 62 46 52 73 7 60 5 1 56 27 63 29 75 48 40 37 8 36 64 35 30 54 23 49 68 67 32 28 4 3 19 47</file>
         </tool>
-        <tool>
-          <name>ICCARM</name>
-          <file> 10</file>
-        </tool>
-      </outputs>
+      </inputs>
     </file>
     <file>
       <name>$PROJ_DIR$\src\main.c</name>
       <outputs>
         <tool>
           <name>BICOMP</name>
-          <file> 9</file>
+          <file> 57</file>
         </tool>
         <tool>
           <name>ICCARM</name>
-          <file> 29</file>
+          <file> 33</file>
         </tool>
       </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 37 30 75 36 4 3 56 35 6 29 24 19 64 60 28 41 2 73 40 52 27 62 63 65 1 8 7 54 23 49 68 67 32 48 5</file>
+        </tool>
+      </inputs>
     </file>
     <file>
       <name>$PROJ_DIR$\src\startup_ewarm.c</name>
       <outputs>
         <tool>
           <name>BICOMP</name>
-          <file> 16</file>
+          <file> 39</file>
         </tool>
         <tool>
           <name>ICCARM</name>
           <file> 22</file>
         </tool>
       </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 23 48 75 54 49 40 68 43 24 29</file>
+        </tool>
+      </inputs>
     </file>
     <file>
       <name>$PROJ_DIR$\src\uartstdio.c</name>
       <outputs>
         <tool>
           <name>BICOMP</name>
-          <file> 18</file>
+          <file> 21</file>
         </tool>
         <tool>
           <name>ICCARM</name>
-          <file> 13</file>
+          <file> 26</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 23 62 56 75 54 37 28 49 24 40 64 63 68 48 19 73 66 30 42 35 29</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\ewarm\Exe\AbleCloudDemo.out</name>
+      <outputs>
+        <tool>
+          <name>OBJCOPY</name>
+          <file> 20</file>
         </tool>
       </outputs>
     </file>

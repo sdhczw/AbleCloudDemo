@@ -163,7 +163,7 @@ void AC_SendDeviceConfig(AC_OptList *pstruOptList, AC_Configuration *pstruConfig
 * Parameter: 
 * History:
 *************************************************/
-void AC_SendDeviceRegsiterWithMac(AC_OptList *pstruOptList, u8 *pu8EqVersion, u8 *pu8ModuleKey, u64 u64Domain, u8 *pu8DeviceId)
+void AC_SendDeviceRegsiterWithMac(u8 *pu8EqVersion, u8 *pu8ModuleKey, u64 u64Domain)
 {
     //统一入库，设备注册请求，设备id无效，使用wifi的mac地址作为设备id，所有固件使用一个私钥
     AC_ExtRegisterReq struExtReg;
@@ -176,7 +176,7 @@ void AC_SendDeviceRegsiterWithMac(AC_OptList *pstruOptList, u8 *pu8EqVersion, u8
 
     AC_BuildMessage(AC_CODE_EXT, 0, 
         (u8*)&struExtReg, sizeof(AC_ExtRegisterReq),   /*payload+payload len*/
-        pstruOptList,
+        NULL,
         g_u8MsgBuildBuffer, &u16DateLen);
     
     AC_SendMessage(g_u8MsgBuildBuffer, u16DateLen);
@@ -190,7 +190,7 @@ void AC_SendDeviceRegsiterWithMac(AC_OptList *pstruOptList, u8 *pu8EqVersion, u8
 * Parameter: 
 * History:
 *************************************************/
-void AC_SendDeviceRegsiter(AC_OptList *pstruOptList, u8 *pu8EqVersion, u8 *pu8ModuleKey, u64 u64Domain, u8 *pu8DeviceId)
+void AC_SendDeviceRegsiter(u8 *pu8EqVersion, u8 *pu8ModuleKey, u64 u64Domain, u8 *pu8DeviceId)
 {
     //设备注册请求
     AC_RegisterReq struReg;
@@ -203,7 +203,7 @@ void AC_SendDeviceRegsiter(AC_OptList *pstruOptList, u8 *pu8EqVersion, u8 *pu8Mo
 
     AC_BuildMessage(AC_CODE_REGSITER, 0, 
         (u8*)&struReg, sizeof(AC_RegisterReq),   /*payload+payload len*/
-        pstruOptList,
+        NULL,
         g_u8MsgBuildBuffer, &u16DateLen);
     
     AC_SendMessage(g_u8MsgBuildBuffer, u16DateLen);
