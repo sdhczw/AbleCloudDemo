@@ -80,15 +80,15 @@ void AC_ConfigWifi()
 {
     AC_Configuration struConfig;
     u8 u8CloudKey[AC_CLOUD_KEY_MAX_LEN] = DEFAULT_IOT_CLOUD_KEY;
-    struConfig.u32TraceSwitch = AC_HTONL(1);     //Trace data switch, 1:open, 0:close,default 0
-    struConfig.u32SecSwitch = AC_HTONL(0);       //Sec data switch, 1:open, 0:close, 2:close RSA, default 1
+    struConfig.u32TraceSwitch = AC_HTONL(0);     //Trace data switch, 1:open, 0:close,default 0
+    struConfig.u32SecSwitch = AC_HTONL(1);       //Sec data switch, 1:open, 0:close, 2:close RSA, default 1
     struConfig.u32WifiConfig =  AC_HTONL(0);      //Use Config SSID,password,1:open, 0:close, default 0
-    struConfig.u32TestAddrConfig = AC_HTONL(1);      //connect with test url,1:ip, 0:dns, default 0
+    struConfig.u32TestAddrConfig = AC_HTONL(0);      //connect with test url,1:ip, 0:dns, default 0
     memcpy(struConfig.u8Ssid, "HW_test", 7);
     memcpy(struConfig.u8Password, "87654321", 8);
     struConfig.u32IpAddr = AC_HTONL(0xc0a80170);  //local test ip
 
-    memcpy(struConfig.u8CloudAddr, "test.ablecloud.cn", AC_CLOUD_ADDR_MAX_LEN);
+    memcpy(struConfig.u8CloudAddr, "device.ablecloud.cn", AC_CLOUD_ADDR_MAX_LEN);
     memcpy(struConfig.u8CloudKey, u8CloudKey, AC_CLOUD_KEY_MAX_LEN);
 
     AC_SendDeviceConfig(NULL, &struConfig);
@@ -130,8 +130,8 @@ void AC_DealNotifyMessage(AC_MessageHead *pstruMsg, AC_OptList *pstruOptList, u8
         AC_Printf("Wifi Power On!\n");
         break;
         case AC_CODE_WIFI_CONNECTED://wifi连接成功通知
-       // AC_SendDeviceRegsiterWithMac(g_u8EqVersion,g_u8ModuleKey,g_u64Domain);
-        AC_SendDeviceRegsiter(g_u8EqVersion,g_u8ModuleKey,g_u64Domain,g_u8DeviceId);
+        AC_SendDeviceRegsiterWithMac(g_u8EqVersion,g_u8ModuleKey,g_u64Domain);
+       // AC_SendDeviceRegsiter(g_u8EqVersion,g_u8ModuleKey,g_u64Domain,g_u8DeviceId);
         AC_Printf("Wifi Connect!\n");
         break;
         case AC_CODE_WIFI_DISCONNECTED://云端连接通知
