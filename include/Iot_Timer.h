@@ -5,7 +5,7 @@
 
 
 
-#define  DEFAULTREPORTTEME 3//report devecie status interval 10s
+#define  DEFAULTREPORTTEME 0//report devecie status interval 10s
 
 
 

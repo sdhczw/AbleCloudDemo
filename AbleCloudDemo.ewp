@@ -172,9 +172,9 @@
           <state>PART_TM4C123GH6PM</state>
           <state>TARGET_IS_TM4C123_RB1</state>
           <state>RT_DEBUG_SUPPORT</state>
-          <state>xI2C_DEVICE_SUPPORT</state>
-          <state>WIFI_DEVICE_SUPPORT</state>
-          <state>xZIGBEE_DEVICE_SUPPORT</state>
+          <state>xJSON_SUPPORT</state>
+          <state>KLV_SUPPORT</state>
+          <state>xBINARY_SUPPORT</state>
         </option>
         <option>
           <name>CCPreprocFile</name>
@@ -307,6 +307,8 @@
           <state>$PROJ_DIR$\src\ac</state>
           <state>$PROJ_DIR$\driverlib</state>
           <state>$PROJ_DIR$</state>
+          <state>$PROJ_DIR$\src\cJSON</state>
+          <state>$PROJ_DIR$\src\klv</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -326,7 +328,7 @@
         </option>
         <option>
           <name>CCOptLevel</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>CCOptStrategy</name>
@@ -335,7 +337,7 @@
         </option>
         <option>
           <name>CCOptLevelSlave</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>CompilerMisraRules98</name>
@@ -967,6 +969,9 @@
       <name>$PROJ_DIR$\src\ac\ac_hal.h</name>
     </file>
     <file>
+      <name>$PROJ_DIR$\src\klv\ac_klv.h</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\src\ac\ac_protocol_interface.h</name>
     </file>
     <file>
@@ -995,6 +1000,12 @@
     </file>
     <file>
       <name>$PROJ_DIR$\src\ac\ac_hal.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\src\klv\ac_klv.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\src\cJSON\cJSON.c</name>
     </file>
     <file>
       <name>$PROJ_DIR$\src\ac\crc.c</name>

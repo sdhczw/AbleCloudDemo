@@ -29,9 +29,6 @@
 #include "ac_common.h"
 #include "ac_hal.h"
 vu32  g_vu32Key = 0;
-
-
-
 /*********************************************************************************************************
 ** Function name:           KeyIntHandle
 ** Descriptions:            
@@ -66,11 +63,15 @@ void KeyIntHandle(void)
         GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_2, g_vu32Key << 2);
         while (GPIOPinRead(GPIO_PORTF_BASE, GPIO_PIN_4) == 0x00); 
         SysCtlDelay(SysCtlClockGet() / 3); // 延时约10ms，消除松键抖动
-        AC_SendLedStatus2Server();
+#if (defined(JSON_SUPPORT))        
+        AC_SendLedJsonStatus2Server(KEY_LED_CONTROL_FROMSWITCH);
+#elif (defined(BINARY_SUPPORT))  
+        AC_SendLedBinaryStatus2Server(KEY_LED_CONTROL_FROMSWITCH);
+#else
+        AC_SendLedKlvStatus2Server(KEY_LED_CONTROL_FROMSWITCH);
+#endif
     }   
 }
-
-
 
 /*********************************************************************************************************
 ** Function name:           KeyInit
@@ -89,10 +90,6 @@ void KeyIntHandle(void)
 *********************************************************************************************************/
 void KeyInit(void)
 {
-    
-    //
-    // Reset the error indicator.
-    //
     SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOF);                   /*  使能GPIO PF口  */
     HWREG(GPIO_PORTF_BASE + GPIO_O_LOCK) = GPIO_LOCK_KEY;                                    //UNLOCK CR REGISTER
     HWREG(GPIO_PORTF_BASE + GPIO_O_CR) |= 0x01;

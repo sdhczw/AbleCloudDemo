@@ -110,8 +110,6 @@ void AC_BuildMessage(u8 u8MsgCode, u8 u8MsgId,
     *pu16Len = (u16)sizeof(AC_MessageHead) + u16PayloadLen + u16OptLen;
 }
 
-
-
 /*************************************************
 * Function: AC_SendDeviceStart
 * Description: 
@@ -132,7 +130,6 @@ void AC_SendDeviceStart(AC_OptList *pstruOptList)
     
     AC_SendMessage(g_u8MsgBuildBuffer, u16DateLen);
 }
-
 
 /*************************************************
 * Function: AC_SendDeviceConfig
@@ -307,25 +304,25 @@ void AC_ParseOption(AC_MessageHead *pstruMsg, AC_OptList *pstruOptList, u16 *pu1
     u8 u8OptNum;
     AC_MessageOptHead *pstruOptHead;
     u16 u16Offset;
-
+    
     u16Offset = sizeof(AC_MessageHead);
     pstruOptHead = (AC_MessageOptHead *)((u8*)pstruMsg + u16Offset);
     *pu16OptLen = 0;
-
+    
     for (u8OptNum = 0; u8OptNum < pstruMsg->OptNum; u8OptNum++)
     {
         switch (AC_HTONS(pstruOptHead->OptCode))
         {
             case AC_OPT_TRANSPORT:
-                pstruOptList->pstruTransportInfo = (AC_TransportInfo *)(pstruOptHead + 1);
-                break;
+            pstruOptList->pstruTransportInfo = (AC_TransportInfo *)(pstruOptHead + 1);
+            break;
             case AC_OPT_SSESSION:
-                pstruOptList->pstruSsession = (AC_SsessionInfo *)(pstruOptHead + 1);            
-                break;
+            pstruOptList->pstruSsession = (AC_SsessionInfo *)(pstruOptHead + 1);            
+            break;
         }
         *pu16OptLen += sizeof(AC_MessageOptHead) + AC_HTONS(pstruOptHead->OptLen);
         pstruOptHead = (AC_MessageOptHead *)((u8*)pstruOptHead + sizeof(AC_MessageOptHead) + AC_HTONS(pstruOptHead->OptLen));
-
+        
     }
 }
 
@@ -353,8 +350,6 @@ u32 AC_CheckCrc(u8 *pu8Crc, u8 *pu8Data, u16 u16Len)
     }
 }
 
-
-
 /*************************************************
 * Function: AC_RecvMessage
 * Description: 
@@ -369,13 +364,13 @@ void AC_RecvMessage(AC_MessageHead *pstruMsg)
     AC_OptList struOptList;
     u16 u16OptLen = 0;
     u8 *pu8Playload = NULL;
-
+    
     struOptList.pstruSsession = NULL;
     struOptList.pstruTransportInfo = NULL;
-   if (AC_RET_ERROR == AC_CheckCrc(pstruMsg->TotalMsgCrc, (u8*)(pstruMsg + 1), AC_HTONS(pstruMsg->Payloadlen)))
-   {
-       return;
-   }
+    if (AC_RET_ERROR == AC_CheckCrc(pstruMsg->TotalMsgCrc, (u8*)(pstruMsg + 1), AC_HTONS(pstruMsg->Payloadlen)))
+    {
+        return;
+    }
     /*Parser Option*/
     AC_ParseOption(pstruMsg, &struOptList, &u16OptLen);
     pu8Playload = (u8*)pstruMsg + u16OptLen + sizeof(AC_MessageHead);
@@ -387,8 +382,8 @@ void AC_RecvMessage(AC_MessageHead *pstruMsg)
         case AC_CODE_WIFI_DISCONNECTED:
         case AC_CODE_CLOUD_CONNECTED:
         case AC_CODE_CLOUD_DISCONNECTED:
-            AC_DealNotifyMessage(pstruMsg, &struOptList, pu8Playload);
-            break;
+        AC_DealNotifyMessage(pstruMsg, &struOptList, pu8Playload);
+        break;
         //OTA类消息
         case AC_CODE_OTA_BEGIN:
         case AC_CODE_OTA_FILE_BEGIN:
@@ -396,18 +391,14 @@ void AC_RecvMessage(AC_MessageHead *pstruMsg)
         case AC_CODE_OTA_FILE_END:
         case AC_CODE_OTA_END:
         case AC_CODE_OTA_CONFIRM:  
-            AC_DealOtaMessage(pstruMsg, &struOptList, pu8Playload);
-            break;
+        AC_DealOtaMessage(pstruMsg, &struOptList, pu8Playload);
+        break;
         //设备事件类消息    
         default:
-            if (pstruMsg->MsgCode >= AC_CODE_EVENT_BASE)
-            {
-                AC_DealEvent(pstruMsg, &struOptList, pu8Playload);
-            }
-            break;            
+        if (pstruMsg->MsgCode >= AC_CODE_EVENT_BASE)
+        {
+            AC_DealEvent(pstruMsg, &struOptList, pu8Playload);
+        }
+        break;            
     }
 }
-
-
-
-

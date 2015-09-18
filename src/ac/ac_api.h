@@ -39,7 +39,6 @@ void AC_SendRestMsg(AC_OptList *pstruOptList);
 void AC_SendRebootMsg(AC_OptList *pstruOptList);
 void AC_RecvMessage(AC_MessageHead *pstruMsg);
 void AC_ParseOption(AC_MessageHead *pstruMsg, AC_OptList *pstruOptList, u16 *pu16OptLen);
-void AC_SendDeviceCloudInfo(AC_OptList *pstruOptList, u8 *pu8CloudAddr, u8 *pu8CloudKey);
 void AC_SendDeviceConfig(AC_OptList *pstruOptList, AC_Configuration *pstruConfig);
 #ifdef __cplusplus
 }

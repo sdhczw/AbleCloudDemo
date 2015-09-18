@@ -209,6 +209,167 @@ void UartSend (u8  *Buffer, u16  NByte)
 }
 
 /*********************************************************************************************************
+** Function name:           UartProcessMsg()
+**  Descriptions:           处理串口消息
+** input parameters:        无
+** Output parameters::      无
+** Returned value:          无
+** Created by:              
+** Created Date:            2014.10.03
+**--------------------------------------------------------------------------------------------------------
+** Modified by:             
+** Modified date:           2014.10.03
+**--------------------------------------------------------------------------------------------------------
+*********************************************************************************************************/
+void UartProcessMsg(u8 ch)
+{
+    u16   roomleft = 0;
+    PKT_FIFO     *infor;
+    PKT_FIFO     *temp_info;   
+    PKT_DESC     *rx_desc = &(UART1Port.Rx_desc);
+    BUFFER_INFO  *rx_ring = &(UART1Port.Rx_Buffer); 
+    static u16 AMHeadLen = sizeof(RCTRL_STRU_MSGHEAD);
+    static u16 AMBodyLen =0;
+    static u8  PDMatchNum = 0;
+    static u8  PrintMatchNum = 0;
+    
+    Buf_GetRoomLeft(rx_ring,roomleft);
+    
+    switch (rx_desc->cur_type)
+    {
+        case PKT_UNKNOWN:
+        {  
+            /**************** detect packet type ***************/
+            if (PureDataPrefix[PDMatchNum] == ch)
+            {         
+                PDMatchNum++;
+            }
+            else
+            {         
+                PDMatchNum = 0;
+            } 
+            if (PrintCmdPrefix[PrintMatchNum] == ch)
+            {         
+                PrintMatchNum++;
+            }
+            else
+            {         
+                PrintMatchNum = 0;
+            }         
+            if ((PDMatchNum == sizeof(PureDataPrefix)-1) ||  
+                (PrintMatchNum == sizeof(PrintCmdPrefix)-1))   //match case 3:arm  data
+            {   
+                
+                rx_desc->cur_num = rx_desc->pkt_num;                  
+                infor = &(rx_desc->infor[rx_desc->cur_num]);
+                infor->pkt_len = 0;
+                
+                if (PrintMatchNum == sizeof(PrintCmdPrefix)-1)
+                {            
+                    rx_desc->cur_type = PKT_PRINTCMD;           //match case 2:iwpriv ra0
+                }
+                else if (PDMatchNum == sizeof(PureDataPrefix)-1)
+                {  
+                    u8 i= 0;
+                    rx_desc->cur_type = PKT_PUREDATA;           //match case 2:iwpriv ra0
+                    if(roomleft<AMHeadLen)
+                    {
+                        rx_desc->cur_type= PKT_UNKNOWN;
+                    }
+                    else
+                    {
+                        for(i = 0;i < sizeof(PureDataPrefix)-1;i++)
+                        {
+                            Buf_Push(rx_ring,PureDataPrefix[i]);
+                        }
+                        roomleft= roomleft-sizeof(PureDataPrefix)+1;
+                        infor = &(rx_desc->infor[rx_desc->cur_num]);
+                        infor->pkt_len = infor->pkt_len + i;
+                    }                                       
+                }
+                PrintMatchNum = 0;
+                PDMatchNum = 0;
+            }           
+        }
+        break;
+        case PKT_PRINTCMD:
+        {          
+            /*
+            * received one complete packet
+            */
+            if(ch == '\0'||ch == '\n' || ch == '\r')
+            {   
+                rx_desc->cur_type = PKT_UNKNOWN;
+                return;
+            }
+        }
+        break;
+        
+        case PKT_PUREDATA:
+        {   
+            infor = &(rx_desc->infor[rx_desc->cur_num]);
+            Buf_Push(rx_ring,ch);
+            roomleft--;
+            infor->pkt_len++;
+            if(infor->pkt_len==AC_PAYLOADLENOFFSET)
+            {
+                AMBodyLen = ch;
+            }
+            else if(infor->pkt_len==(AC_PAYLOADLENOFFSET +1))
+            {
+                AMBodyLen = (AMBodyLen<<8) + ch;
+            }   
+            /*
+            * if overflow,we discard the current packet
+            * example1:packet length > ring size
+            * example2:rx ring buff can no be freed by task as quickly as rx interrupt coming
+            */    
+            if ((!roomleft) || (rx_desc->pkt_num >= NUM_DESCS))
+            {   
+                //rollback
+                Buff_RollBack(rx_ring,infor->pkt_len);
+                
+                roomleft += infor->pkt_len;
+                
+                infor->pkt_type = PKT_UNKNOWN;
+                infor->pkt_len = 0;
+                rx_desc->cur_type = PKT_UNKNOWN;
+                
+                if (rx_desc->pkt_num >= NUM_DESCS)
+                {
+                    rx_desc->pkt_num--;
+                }
+                
+            }      
+            /*
+            * received one complete packet
+            */
+            if(AMHeadLen+AMBodyLen==infor->pkt_len)
+            {   
+                //if task has consumed some packets
+                if (rx_desc->cur_num != rx_desc->pkt_num)
+                {   
+                    temp_info = infor;
+                    infor     = &(rx_desc->infor[rx_desc->pkt_num]);
+                    infor->pkt_len = temp_info->pkt_len;
+                    temp_info->pkt_len = 0;
+                    temp_info->pkt_type = PKT_UNKNOWN;
+                }
+                
+                infor->pkt_type = rx_desc->cur_type;  // PKT_ATCMD / PKT_IWCMD;
+                rx_desc->pkt_num++;
+                rx_desc->cur_type = PKT_UNKNOWN;
+                AMBodyLen =0;
+                return;                    
+            }
+        }
+        break;
+        default:
+        break;
+    } 
+}
+
+/*********************************************************************************************************
 ** Function name:           UART1_ISR
 **  Descriptions:           串口1中断服务函数
 ** input parameters:        无
@@ -223,163 +384,33 @@ void UartSend (u8  *Buffer, u16  NByte)
 *********************************************************************************************************/
 void UART1_ISR(void)
 {
-    u16   roomleft = 0;
-    PKT_FIFO     *infor;
-    PKT_FIFO     *temp_info;
-    u8        ch = 0;
-    u8 i= 0;
-    
-    PKT_DESC     *rx_desc = &(UART1Port.Rx_desc);
-    BUFFER_INFO  *rx_ring = &(UART1Port.Rx_Buffer); 
-    static u16 AMHeadLen = sizeof(RCTRL_STRU_MSGHEAD);
-    static u16 AMBodyLen =0;
-    static u8  PDMatchNum = 0;
-    static u8  PrintMatchNum = 0;
+    u8 ch = 0;
     unsigned long ulStatus; 
-    Buf_GetRoomLeft(rx_ring,roomleft);
-    
     ulStatus = UARTIntStatus(UART1_BASE, true);                         /*  读取已使能的串口0中断状态   */
     UARTIntClear(UART1_BASE, ulStatus);                                 /*  清除当前的串口0中断         */
-    if((ulStatus & UART_INT_RT)||(ulStatus & UART_INT_RX)) {            /*  接收中断                    */
+    if((ulStatus & UART_INT_RT)||(ulStatus & UART_INT_RX))
+    {            /*  接收中断                    */
         while(UARTCharsAvail(UART1_BASE))
         {
             ch = UartGetChar();
-            switch (rx_desc->cur_type)
-            {
-                case PKT_UNKNOWN:
-                {  
-                    /**************** detect packet type ***************/
-                    if (PureDataPrefix[PDMatchNum] == ch)
-                    {         
-                        PDMatchNum++;
-                    }
-                    else
-                    {         
-                        PDMatchNum = 0;
-                    } 
-                    if (PrintCmdPrefix[PrintMatchNum] == ch)
-                    {         
-                        PrintMatchNum++;
-                    }
-                    else
-                    {         
-                        PrintMatchNum = 0;
-                    }         
-                    if ((PDMatchNum == sizeof(PureDataPrefix)-1) ||  
-                        (PrintMatchNum == sizeof(PrintCmdPrefix)-1))   //match case 3:arm  data
-                    {   
-                        
-                        rx_desc->cur_num = rx_desc->pkt_num;                  
-                        infor = &(rx_desc->infor[rx_desc->cur_num]);
-                        infor->pkt_len = 0;
-                        
-                        if (PrintMatchNum == sizeof(PrintCmdPrefix)-1)
-                        {            
-                            rx_desc->cur_type = PKT_PRINTCMD;           //match case 2:iwpriv ra0
-                        }
-                        else if (PDMatchNum == sizeof(PureDataPrefix)-1)
-                        {            
-                            rx_desc->cur_type = PKT_PUREDATA;           //match case 2:iwpriv ra0
-                            if(roomleft<AMHeadLen)
-                            {
-                                rx_desc->cur_type= PKT_UNKNOWN;
-                            }
-                            else
-                            {
-                                for(i = 0;i < sizeof(PureDataPrefix)-1;i++)
-                                {
-                                    Buf_Push(rx_ring,PureDataPrefix[i]);
-                                }
-                                roomleft= roomleft-sizeof(PureDataPrefix)+1;
-                                infor = &(rx_desc->infor[rx_desc->cur_num]);
-                                infor->pkt_len = infor->pkt_len + i;
-                            }                                       
-                        }
-                        PrintMatchNum = 0;
-                        PDMatchNum = 0;
-                        continue;
-                    }           
-                }
-                break;
-                case PKT_PRINTCMD:
-                {          
-                    /*
-                    * received one complete packet
-                    */
-                    if(ch == '\0'||ch == '\n' || ch == '\r')
-                    {   
-                        rx_desc->cur_type = PKT_UNKNOWN;
-                        return;
-                    }
-                }
-                break;
-                
-                case PKT_PUREDATA:
-                {   
-                    infor = &(rx_desc->infor[rx_desc->cur_num]);
-                    Buf_Push(rx_ring,ch);
-                    roomleft--;
-                    infor->pkt_len++;
-                    if(infor->pkt_len==AC_PAYLOADLENOFFSET)
-                    {
-                        AMBodyLen = ch;
-                    }
-                    else if(infor->pkt_len==(AC_PAYLOADLENOFFSET +1))
-                    {
-                        AMBodyLen = (AMBodyLen<<8) + ch;
-                    }   
-                    /*
-                    * if overflow,we discard the current packet
-                    * example1:packet length > ring size
-                    * example2:rx ring buff can no be freed by task as quickly as rx interrupt coming
-                    */    
-                    if ((!roomleft) || (rx_desc->pkt_num >= NUM_DESCS))
-                    {   
-                        //rollback
-                        Buff_RollBack(rx_ring,infor->pkt_len);
-                        
-                        roomleft += infor->pkt_len;
-                        
-                        infor->pkt_type = PKT_UNKNOWN;
-                        infor->pkt_len = 0;
-                        rx_desc->cur_type = PKT_UNKNOWN;
-                        
-                        if (rx_desc->pkt_num >= NUM_DESCS)
-                        {
-                            rx_desc->pkt_num--;
-                        }
-                        
-                    }      
-                    /*
-                    * received one complete packet
-                    */
-                    if(AMHeadLen+AMBodyLen==infor->pkt_len)
-                    {   
-                        //if task has consumed some packets
-                        if (rx_desc->cur_num != rx_desc->pkt_num)
-                        {   
-                            temp_info = infor;
-                            infor     = &(rx_desc->infor[rx_desc->pkt_num]);
-                            infor->pkt_len = temp_info->pkt_len;
-                            temp_info->pkt_len = 0;
-                            temp_info->pkt_type = PKT_UNKNOWN;
-                        }
-                        
-                        infor->pkt_type = rx_desc->cur_type;  // PKT_ATCMD / PKT_IWCMD;
-                        rx_desc->pkt_num++;
-                        rx_desc->cur_type = PKT_UNKNOWN;
-                        AMBodyLen =0;
-                        return;                    
-                    }
-                }
-                break;
-                default:
-                break;
-            }  
+            UartProcessMsg(ch);
         }
     }
 }
 
+/*********************************************************************************************************
+** Function name:           UART1_ISR
+**  Descriptions:           处理wifi消息
+** input parameters:        无
+** Output parameters::      无
+** Returned value:          无
+** Created by:              
+** Created Date:            2014.10.03
+**--------------------------------------------------------------------------------------------------------
+** Modified by:             
+** Modified date:           2014.10.03
+**--------------------------------------------------------------------------------------------------------
+*********************************************************************************************************/
 void ProcessWifiMsg()
 {
     PKT_FIFO     *infor;
@@ -403,7 +434,7 @@ void ProcessWifiMsg()
         for(i = 0;i < rxpkt_len;i++)       //O(n)
         {
             Buf_Pop(rx_ring,pCmdWifiBuf[i]);
-            //Printf_High("Buf_Pop=%x \n",pCmdBuf[i]);
+            //AC_Printf("Buf_Pop=%x \n",pCmdBuf[i]);
         }
         
         //reset value
@@ -421,8 +452,8 @@ void ProcessWifiMsg()
         switch (rxpkt_type)
         {
             case PKT_PUREDATA:
-                AC_RecvMessage((AC_MessageHead*)(pCmdWifiBuf + 4));
-                break;
+            AC_RecvMessage((AC_MessageHead*)(pCmdWifiBuf + 4));
+            break;
             default:
             break;
         }    

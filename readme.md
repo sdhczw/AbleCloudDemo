@@ -2,6 +2,9 @@
 
 
 ##修改记录：
+###v1.0.5 2015.09.18
+1.合并二进制、klv、json工程，默认支持klv，支持json、二进制需要配置工程对应宏开关
+
 ###v1.0.5 2015.09.01
 1.更新AC_SendDeviceRegsiter和AC_SendDeviceRegsiterWithMac去除AC_OptList传入参数
 

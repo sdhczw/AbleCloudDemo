@@ -47,7 +47,7 @@ void Timer0AIntHandler(void)
     {
           IntMasterDisable();
 
-         // AC_SendLedStatus2Server();
+          //AC_SendLedStatus2Server(KEY_LED_CONTROL_FROMSWITCH);
           //Report data
           g_u32Timer0BReportCounter = 0;
           IntMasterEnable();
@@ -76,7 +76,7 @@ void PeriodicTimerInit()
     //
     // Set the Timer0B load value to 1s.
     //
-    TimerLoadSet(TIMER0_BASE, TIMER_A, SysCtlClockGet());
+    TimerLoadSet(TIMER0_BASE, TIMER_A, SysCtlClockGet()/4);
     
     //
     // Enable processor interrupts.

@@ -11,7 +11,7 @@
 #include <ac_common.h>
 
 #define AC_HS_MSG_LEN                       (40)
-#define AC_HS_DEVICE_ID_LEN                 (48)
+#define AC_HS_DEVICE_ID_LEN                 (16)
 #define AC_HS_SESSION_KEY_LEN               (16)
 #define AC_HS_SESSION_IV_LEN                (16)
 #define AC_MODULE_KEY_LEN                   (112)
@@ -89,11 +89,15 @@ typedef enum
     AC_CODE_OTA_FILE_CHUNK,
     AC_CODE_OTA_FILE_END,
     AC_CODE_OTA_END,
-    
     AC_CODE_OTA_CONFIRM = 35,
+    AC_CODE_UNBIND = 36,
+    
+    AC_CODE_KLV_RSP = 60,
+    AC_CODE_JSON_RSP = 61,
     AC_CODE_EXT = 63,
     /*Custom Code*/   
     AC_CODE_EVENT_BASE = 64,
+    AC_CODE_REPORT_BASE = 200
 }AC_MsgCode;
 
 /*ACloud Ext Message code*/
