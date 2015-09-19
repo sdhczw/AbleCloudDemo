@@ -28,10 +28,8 @@ s8 AC_GetKeyValue(u8 *pu8Playload, u16 u16PayloadLen, u8 u8Key,void *pValue,u16 
     u32 i = 0;
     u8 temp;
     while(i<u16PayloadLen)
-    {
-        
-        *pu8Type = ((p[i+1])&0x1f);
-        
+    {     
+        *pu8Type = ((p[i+1])&0x1f);      
         switch(*pu8Type)
         {
             case INVALID_TYPE:

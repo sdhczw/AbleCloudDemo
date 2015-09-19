@@ -358,7 +358,7 @@ void AC_DealBinaryMessage(AC_MessageHead *pstruMsg, AC_OptList *pstruOptList, u8
     /*发送消息,接口含义详见下节接口定义*/
     AC_SendMessage(g_u8MsgBuildBuffer, u16DataLen);    
     
-    AC_SendLedBinaryStatus2Server(KEY_LED_CONTROL_FROMAPP);
+    //AC_SendLedBinaryStatus2Server(KEY_LED_CONTROL_FROMAPP);
 }
 /*************************************************
 * Function: AC_DealKLVMessage
@@ -452,7 +452,7 @@ void AC_DealEvent(AC_MessageHead *pstruMsg, AC_OptList *pstruOptList, u8 *pu8Pla
     switch(pstruMsg->MsgCode)
     {
         case AC_CODE_BINARY_LED:
-        AC_DealKLVMessage(pstruMsg, pstruOptList, pu8Playload);
+        AC_DealBinaryMessage(pstruMsg, pstruOptList, pu8Playload);
         break; 
         case AC_CODE_KLV_LED:
         AC_DealKLVMessage(pstruMsg, pstruOptList, pu8Playload);
